@@ -177,6 +177,8 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
+            box-sizing: border-box;
         }
 
         .hero-container {
@@ -187,6 +189,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 6rem;
             align-items: center;
+            z-index: 2;
         }
 
         .hero-content {
@@ -715,10 +718,16 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
+            padding: 0.8rem 1.5rem;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 50px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         .project-link:hover {
             transform: translateX(5px);
+            background: rgba(245, 158, 11, 0.2);
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
         }
 
         /* Footer */
@@ -853,11 +862,19 @@
             .nav-menu {
                 display: none;
             }
+    .hero {
+        min-height: 100vh;
+        padding-top: 100px; /* Increase padding for mobile header */
+        align-items: flex-start; /* Prevent content from being centered and hidden */
+        padding-bottom: 2rem; /* Add bottom padding for mobile */
+    }
+            
 
             .hero-container {
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 3rem;
+                padding-top: 2rem;
             }
 
             .name-title {
@@ -902,6 +919,45 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .copyable {
+    cursor: pointer;
+    position: relative;
+}
+
+.copyable:hover {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.copyable::after {
+    content: 'Click to copy';
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.copyable:hover::after {
+    opacity: 1;
+}
+
+.copied::after {
+    content: 'Copied!' !important;
+    background: rgba(34, 197, 94, 0.9) !important;
+    opacity: 1 !important;
+}
+
     </style>
 </head>
 <body>
@@ -1090,7 +1146,7 @@
                 <!-- WordPress Projects -->
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-wordpress fa-3x"></i>
+                        <i class="fa-brands fa-wordpress fa-3x"></i>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">WordPress Web Developer Projects</h3>
@@ -1114,6 +1170,20 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Web Design Projects -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fa-brands fa-figma fa-3x"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">Web Design Design Projects</h3>
+                        <p class="project-desc">Creative and user-centered design solutions featuring intuitive interfaces, wireframes, prototypes, and comprehensive design systems.</p>
+                        <a href="https://drive.google.com/drive/folders/1brj3vOA2evyZ14pCsPveDn5_DOhLjc-L?usp=sharing" class="project-link" target="_blank">
+                            View Portfolio <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1125,19 +1195,20 @@
             <p class="footer-subtitle">If you need a person who can visualize stories, then let us chat!</p>
             
             <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>faizanalameducation@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>Available for consultation</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Remote Work Available</span>
-                </div>
-            </div>
+    <div class="contact-item copyable" data-copy="faizanalameducation@gmail.com">
+        <i class="fas fa-envelope"></i>
+        <span>Email</span>
+    </div>
+    <div class="contact-item copyable" data-copy="+917061969508">
+        <i class="fas fa-phone"></i>
+        <span>Available for consultation</span>
+    </div>
+    <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Remote Work Available</span>
+    </div>
+</div>
+
 
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/faizanalamfa?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" title="LinkedIn">
@@ -1241,6 +1312,41 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
+
+        // Copy to clipboard functionality
+document.querySelectorAll('.copyable').forEach(item => {
+    item.addEventListener('click', async function() {
+        const textToCopy = this.getAttribute('data-copy');
+        
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+            
+            // Visual feedback
+            this.classList.add('copied');
+            
+            // Remove the feedback after 2 seconds
+            setTimeout(() => {
+                this.classList.remove('copied');
+            }, 2000);
+            
+        } catch (err) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Visual feedback
+            this.classList.add('copied');
+            setTimeout(() => {
+                this.classList.remove('copied');
+            }, 2000);
+        }
+    });
+});
+
     </script>
 </body>
 </html>
