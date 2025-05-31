@@ -249,6 +249,13 @@
             overflow: hidden;
         }
 
+        .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* This will show the full image without cropping */
+    object-position: center;
+}
+
         .project-card:nth-child(2) .project-image {
             background: var(--gradient-2);
         }
@@ -493,6 +500,31 @@
                 padding: 0 1rem;
             }
         }
+        
+        .concept-tab {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.concept-tab:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
     </style>
 </head>
 <body>
@@ -522,10 +554,26 @@
             <h2 class="projects-title">Web Development Projects</h2>
             <p class="projects-subtitle">Explore my latest web development projects showcasing modern technologies and innovative solutions.</p>
             
+            
             <div class="projects-grid">
+
+                <div class="project-card">
+    <div class="project-image">
+        <i class="3x"><img src="./assets/screencapture-file-C-Users-Faizan-Desktop-Code-Web-Developer-Projects-ChatWala-index-html-2025-05-31-19_47_48.png" alt=""></i>
+        <span class="concept-tab">Concept</span>
+    </div>
+    <div class="project-content">
+        <h3 class="project-name">Chat Messanging Landing Page</h3>
+        <p class="project-desc">An intuitive chat application that enables teams to communicate effortlessly with other teams while supporting individual calling features for enhanced professional collaboration and connectivity.</p>
+        <a href="https://faizanalameducation.github.io/chatwala/" class="project-link" target="_blank">
+            View Project <i class="fas fa-external-link-alt"></i>
+        </a>
+    </div>
+</div>
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-chart-line fa-3x"></i>
+                        <i class="3x"><img src="./assets/screencapture-faizanalameducation-github-io-Expense-Project-2025-05-31-17_58_52.png" alt="Expense Tracker"></i>
+                                <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Expense Tracker</h3>
@@ -538,7 +586,8 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-robot fa-3x"></i>
+                        <i class="3x"><img src="./assets/ai chat.png" alt="Al-Powered Customer Support System"></i>
+                                <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">AI-Powered Customer Support System</h3>
@@ -551,7 +600,8 @@
                 
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="fas fa-boxes fa-3x"></i>
+                        <i class="3x"><img src="./assets/grove street.png" alt=""></i>
+                                <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Smart Inventory Management System</h3>
@@ -561,6 +611,7 @@
                         </a>
                     </div>
                 </div>
+
             </div>
             
             <div class="back-button">
