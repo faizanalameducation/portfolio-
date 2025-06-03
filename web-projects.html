@@ -553,6 +553,98 @@
     opacity: 0.8 !important;
 }
 
+/* Header Buttons Container */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* CV Download Button */
+.cv-btn {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0.8rem 1.8rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.cv-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+}
+
+.cv-btn:hover::before {
+    left: 100%;
+}
+
+.cv-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.cv-btn i {
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsive - Update existing mobile styles */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .header-buttons {
+        gap: 0.5rem;
+    }
+    
+    .cv-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.8rem;
+    }
+    
+    .cv-btn span {
+        display: none; /* Hide text on very small screens */
+    }
+    
+    .contact-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* For very small screens, show only icons */
+    @media (max-width: 480px) {
+        .cv-btn {
+            padding: 0.7rem;
+            min-width: auto;
+        }
+        
+        .cv-btn::after {
+            content: '';
+        }
+    }
+}
+
+
+
 
     </style>
 </head>
@@ -561,21 +653,29 @@
     <div class="animated-bg"></div>
 
     <!-- Header -->
-    <header class="header">
-        <div class="nav-container">
-            <div class="logo">Faizan Alam</div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#services">Services</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#projects">Projects</a></li>
-                    <li><a href="index.html#skills">Skills</a></li>
-                </ul>
-            </nav>
-            <a href="index.html#contact" class="contact-btn">Let's Talk</a>
+<!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">Faizan Alam</div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </nav>
+        <div class="header-buttons">
+            <a href="https://rxresu.me/faizanalameducation/web-developer" class="cv-btn" download>
+                <i class="fas fa-download"></i>
+                Download CV
+            </a>
+            <a href="#contact" class="contact-btn">Let's Talk</a>
         </div>
-    </header>
+    </div>
+</header>
+
 
     <!-- Web Projects Section -->
     <section class="web-projects">
