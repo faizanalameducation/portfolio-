@@ -525,6 +525,35 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
 
+.copy-feedback {
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInOut 2s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+.copyable {
+    transition: opacity 0.2s ease;
+}
+
+.copyable:hover {
+    opacity: 0.8 !important;
+}
+
+
     </style>
 </head>
 <body>
@@ -621,38 +650,33 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer id="contact" class="footer">
         <div class="footer-container">
             <h2 class="footer-title">Let's Work Together</h2>
             <p class="footer-subtitle">If you need a person who can visualize stories, then let us chat!</p>
             
             <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>faizanalameducation@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>Available for consultation</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Remote Work Available</span>
-                </div>
-            </div>
+    <div class="contact-item copyable" data-copy="faizanalameducation@gmail.com">
+        <i class="fas fa-envelope"></i>
+        <span>Email</span>
+    </div>
+    <div class="contact-item copyable" data-copy="+917061969508">
+        <i class="fas fa-phone"></i>
+        <span>Available for consultation</span>
+    </div>
+    <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Remote Work Available</span>
+    </div>
+</div>
+
 
             <div class="social-links">
-                <a href="#" class="social-link" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/faizanalamfa?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" title="LinkedIn">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a href="#" class="social-link" title="GitHub">
+                <a href="https://github.com/faizanalameducation" class="social-link" title="GitHub">
                     <i class="fab fa-github"></i>
-                </a>
-                <a href="#" class="social-link" title="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-link" title="Instagram">
-                    <i class="fab fa-instagram"></i>
                 </a>
             </div>
 
@@ -661,6 +685,7 @@
             </div>
         </div>
     </footer>
+
 
     <script>
         // Header background on scroll
@@ -697,6 +722,134 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
+// Copy functionality for email and phone
+document.addEventListener('DOMContentLoaded', function() {
+    const copyableElements = document.querySelectorAll('.copyable');
+    
+    copyableElements.forEach(element => {
+        element.addEventListener('click', async function() {
+            const textToCopy = this.getAttribute('data-copy');
+            
+            try {
+                // Modern approach - Clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(textToCopy);
+                    showCopyFeedback(this, 'Copied!');
+                } else {
+                    // Fallback for older browsers
+                    copyTextFallback(textToCopy);
+                    showCopyFeedback(this, 'Copied!');
+                }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                showCopyFeedback(this, 'Copy failed!');
+            }
+        });
+        
+        // Add cursor pointer style
+        element.style.cursor = 'pointer';
+        
+        // Optional: Add hover effect
+        element.addEventListener('mouseenter', function() {
+            this.style.opacity = '0.8';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.opacity = '1';
+        });
+    });
+});
+
+// Fallback copy function for older browsers
+function copyTextFallback(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        textArea.remove();
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+        textArea.remove();
+        throw err;
+    }
+}
+
+// Show feedback to user
+function showCopyFeedback(element, message) {
+    // Create feedback element
+    const feedback = document.createElement('div');
+    feedback.textContent = message;
+    feedback.className = 'copy-feedback';
+    
+    // Position feedback
+    const rect = element.getBoundingClientRect();
+    feedback.style.position = 'fixed';
+    feedback.style.left = rect.left + (rect.width / 2) + 'px';
+    feedback.style.top = (rect.top - 40) + 'px';
+    feedback.style.transform = 'translateX(-50%)';
+    feedback.style.zIndex = '9999';
+    
+    document.body.appendChild(feedback);
+    
+    // Remove feedback after animation
+    setTimeout(() => {
+        if (feedback.parentNode) {
+            feedback.parentNode.removeChild(feedback);
+        }
+    }, 2000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const copyableElements = document.querySelectorAll('.copyable');
+    
+    copyableElements.forEach(element => {
+        // Add copy icon
+        const copyIcon = document.createElement('i');
+        copyIcon.className = 'fas fa-copy copy-icon';
+        copyIcon.style.marginLeft = '8px';
+        copyIcon.style.opacity = '0';
+        copyIcon.style.transition = 'opacity 0.2s ease';
+        element.appendChild(copyIcon);
+        
+        element.addEventListener('click', async function() {
+            const textToCopy = this.getAttribute('data-copy');
+            
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(textToCopy);
+                    showCopyFeedback(this, 'Copied!');
+                } else {
+                    copyTextFallback(textToCopy);
+                    showCopyFeedback(this, 'Copied!');
+                }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                showCopyFeedback(this, 'Copy failed!');
+            }
+        });
+        
+        element.style.cursor = 'pointer';
+        
+        element.addEventListener('mouseenter', function() {
+            copyIcon.style.opacity = '0.7';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            copyIcon.style.opacity = '0';
+        });
+    });
+});
+
+// Include the same fallback and feedback functions from above
+
+
     </script>
 </body>
 </html>
