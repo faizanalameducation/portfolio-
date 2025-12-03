@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="website designer near me, freelance web developer, web design company, web designers near me">
     <title>Web Development Projects - Faizan Alam</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -30,12 +31,13 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--dark-bg);
             overflow-x: hidden;
+            width: 100%;
         }
 
         /* Animated Background */
@@ -103,6 +105,15 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+    /* Mobile Menu Button - Moved to top to avoid overriding media query */
+    .mobile-menu-btn {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        z-index: 1001;
+    }
 
         .nav-menu {
             display: flex;
@@ -209,9 +220,10 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
             margin-bottom: 4rem;
+            padding: 0 1rem;
         }
 
         .project-card {
@@ -240,20 +252,19 @@
             width: 100%;
             height: 250px;
             background: var(--gradient-1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
+            display: block;
             position: relative;
             overflow: hidden;
         }
 
         .project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* This will show the full image without cropping */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
     object-position: center;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
         .project-card:nth-child(2) .project-image {
@@ -314,6 +325,29 @@
             transform: translateX(5px);
             background: rgba(245, 158, 11, 0.2);
             box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .project-tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .tech-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: var(--text-primary);
         }
 
         .back-button {
@@ -483,7 +517,11 @@
             }
 
             .project-card {
-                margin: 0 1rem;
+                margin: 0;
+            }
+
+            .project-image {
+                height: 200px;
             }
         }
 
@@ -612,8 +650,12 @@
         display: none;
     }
     
+    .mobile-menu-btn {
+        display: block;
+    }
+    
     .header-buttons {
-        gap: 0.5rem;
+        display: none;
     }
     
     .cv-btn {
@@ -646,6 +688,43 @@
 
 
 
+    /* Mobile Menu */
+
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(15, 15, 35, 0.98);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
+
+    .mobile-link {
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+
+    .mobile-link:hover {
+        color: var(--accent-color);
+    }
+
     </style>
 </head>
 <body>
@@ -653,10 +732,9 @@
     <div class="animated-bg"></div>
 
     <!-- Header -->
-<!-- Header -->
 <header class="header">
     <div class="nav-container">
-        <div class="logo">Faizan Alam</div>
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Faizan Alam</a></div>
         <nav>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
@@ -676,6 +754,16 @@
     </div>
 </header>
 
+<div class="mobile-menu">
+    <a href="index.html" class="mobile-link" onclick="toggleMenu()">Home</a>
+    <a href="#services" class="mobile-link" onclick="toggleMenu()">Services</a>
+    <a href="#about" class="mobile-link" onclick="toggleMenu()">About</a>
+    <a href="#projects" class="mobile-link" onclick="toggleMenu()">Projects</a>
+    <a href="#skills" class="mobile-link" onclick="toggleMenu()">Skills</a>
+    <a href="https://rxresu.me/faizanalameducation/web-developer" class="mobile-link" download>Download CV</a>
+    <a href="#contact" class="mobile-link" onclick="toggleMenu()">Let's Talk</a>
+</div>
+
 
     <!-- Web Projects Section -->
     <section class="web-projects">
@@ -686,14 +774,69 @@
             
             <div class="projects-grid">
 
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="./assets/Seelios Shoe Ecommerce Website.png" alt="Seelios – Shoe Ecommerce Website">
+                        <span class="concept-tab">Concept</span>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">Seelios – Shoe Ecommerce Website</h3>
+                        <p class="project-desc">A modern ecommerce website concept designed to showcase premium sneakers, apparel, and accessories. This project focuses on clean UI, intuitive navigation, and a product-first layout featuring trending items, hero sections, membership CTA, and a fully structured shopping experience. Built as a portfolio piece to highlight skills in UI/UX design, responsive layouts, and ecommerce-focused user flows.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">Next.js 16</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">React 19</span>
+                            <span class="tech-tag">Tailwind CSS 4</span>
+                            <span class="tech-tag">shadcn/ui</span>
+                            <span class="tech-tag">Zustand</span>
+                            <span class="tech-tag">Supabase</span>
+                            <span class="tech-tag">Stripe</span>
+                        </div>
+                        <a href="https://seelios-ecommerce-oaba.vercel.app/" class="project-link" target="_blank">
+                            View Project <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="./assets/Lupern – AI Landing Page Generator.png" alt="Lupern - AI Landing Page Generator">
+                        <span class="concept-tab">Concept</span>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">Lupern – AI Landing Page Generator</h3>
+                        <p class="project-desc">An AI-powered landing page generator that creates high-converting, SEO-optimized pages in seconds using smart copywriting, automated structure, and real-time previews—simply describe your business and launch instantly.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">Next.js 14</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Tailwind CSS</span>
+                            <span class="tech-tag">Supabase</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Hugging Face AI</span>
+                        </div>
+                        <a href="https://lupern-ai.vercel.app/" class="project-link" target="_blank">
+                            View Project <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
                                 <div class="project-card">
     <div class="project-image">
-        <i class="3x"><img src="./assets/screencapture-type-speed-5fho-onrender-2025-07-30-11_33_49.png" alt="StarType Pro Typing Coach"></i>
+        <img src="./assets/screencapture-type-speed-5fho-onrender-2025-07-30-11_33_49.png" alt="StarType Pro Typing Coach">
         <span class="concept-tab">Concept</span>
     </div>
     <div class="project-content">
         <h3 class="project-name">StarType Pro Typing Coach</h3>
         <p class="project-desc">A typing speed platform that enables users to improve keyboard proficiency through customizable tests, real-time analytics, and difficulty levels while providing performance tracking and competitive features for enhanced typing skills.</p>
+        <div class="project-tech-stack">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">Vanilla JS</span>
+            <span class="tech-tag">Chart.js</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">Express.js</span>
+        </div>
         <a href="https://type-speed-5fho.onrender.com/" class="project-link" target="_blank">
             View Project <i class="fas fa-external-link-alt"></i>
         </a>
@@ -702,12 +845,18 @@
 
                 <div class="project-card">
     <div class="project-image">
-        <i class="3x"><img src="./assets/screencapture-file-C-Users-Faizan-Desktop-Code-Web-Developer-Projects-ChatWala-index-html-2025-05-31-19_47_48.png" alt="Chat Messanging Landing Page"></i>
+        <img src="./assets/screencapture-file-C-Users-Faizan-Desktop-Code-Web-Developer-Projects-ChatWala-index-html-2025-05-31-19_47_48.png" alt="Chat Messanging Landing Page">
         <span class="concept-tab">Concept</span>
     </div>
     <div class="project-content">
         <h3 class="project-name">Chat Messanging Landing Page</h3>
         <p class="project-desc">An intuitive chat application that enables teams to communicate effortlessly with other teams while supporting individual calling features for enhanced professional collaboration and connectivity.</p>
+        <div class="project-tech-stack">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">Vanilla JS</span>
+            <span class="tech-tag">Google Fonts</span>
+        </div>
         <a href="https://faizanalameducation.github.io/chatwala/" class="project-link" target="_blank">
             View Project <i class="fas fa-external-link-alt"></i>
         </a>
@@ -715,12 +864,20 @@
 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="3x"><img src="./assets/screencapture-faizanalameducation-github-io-Expense-Project-2025-05-31-17_58_52.png" alt="Expense Tracker"></i>
+                        <img src="./assets/screencapture-faizanalameducation-github-io-Expense-Project-2025-05-31-17_58_52.png" alt="Expense Tracker">
                                 <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Expense Tracker</h3>
                         <p class="project-desc">A comprehensive expense tracking application built with modern JavaScript, featuring real-time data visualization and budget management capabilities.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
                         <a href="https://faizanalameducation.github.io/Expense-Project/" class="project-link" target="_blank">
                             View Project <i class="fas fa-external-link-alt"></i>
                         </a>
@@ -735,6 +892,13 @@
                     <div class="project-content">
                         <h3 class="project-name">AI-Powered Customer Support System</h3>
                         <p class="project-desc">An intelligent customer support system powered by AI, providing automated responses and seamless user interactions.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">Vanilla JS</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">Font Awesome</span>
+                        </div>
                         <a href="https://faizanalameducation.github.io/Customer-Support-System-AI/" class="project-link" target="_blank">
                             View Project <i class="fas fa-external-link-alt"></i>
                         </a>
@@ -749,6 +913,12 @@
                     <div class="project-content">
                         <h3 class="project-name">Smart Inventory Management System</h3>
                         <p class="project-desc">A smart inventory management system designed to streamline business operations with real-time tracking and analytics.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">Vanilla JS</span>
+                            <span class="tech-tag">Local Storage</span>
+                        </div>
                         <a href="https://faizanalameducation.github.io/Smart-Inventory-Management-System/" class="project-link" target="_blank">
                             View Project <i class="fas fa-external-link-alt"></i>
                         </a>
@@ -837,42 +1007,6 @@
             });
         });
 // Copy functionality for email and phone
-document.addEventListener('DOMContentLoaded', function() {
-    const copyableElements = document.querySelectorAll('.copyable');
-    
-    copyableElements.forEach(element => {
-        element.addEventListener('click', async function() {
-            const textToCopy = this.getAttribute('data-copy');
-            
-            try {
-                // Modern approach - Clipboard API
-                if (navigator.clipboard && window.isSecureContext) {
-                    await navigator.clipboard.writeText(textToCopy);
-                    showCopyFeedback(this, 'Copied!');
-                } else {
-                    // Fallback for older browsers
-                    copyTextFallback(textToCopy);
-                    showCopyFeedback(this, 'Copied!');
-                }
-            } catch (err) {
-                console.error('Failed to copy: ', err);
-                showCopyFeedback(this, 'Copy failed!');
-            }
-        });
-        
-        // Add cursor pointer style
-        element.style.cursor = 'pointer';
-        
-        // Optional: Add hover effect
-        element.addEventListener('mouseenter', function() {
-            this.style.opacity = '0.8';
-        });
-        
-        element.addEventListener('mouseleave', function() {
-            this.style.opacity = '1';
-        });
-    });
-});
 
 // Fallback copy function for older browsers
 function copyTextFallback(text) {
@@ -961,9 +1095,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Include the same fallback and feedback functions from above
 
 
+
+    </script>
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const btn = document.querySelector('.mobile-menu-btn i');
+            menu.classList.toggle('active');
+            
+            if (menu.classList.contains('active')) {
+                btn.classList.remove('fa-bars');
+                btn.classList.add('fa-times');
+            } else {
+                btn.classList.remove('fa-times');
+                btn.classList.add('fa-bars');
+            }
+        }
     </script>
 </body>
 </html>
