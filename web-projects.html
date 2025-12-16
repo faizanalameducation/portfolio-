@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="website designer near me, freelance web developer, web design company, web designers near me">
+    <meta name="keywords"
+        content="website designer near me, freelance web developer, web design company, web designers near me">
     <title>Web Development Projects - Faizan Alam</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
+        /* ========================================
+           CINEMATIC DESIGN SYSTEM
+           ======================================== */
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #f59e0b;
-            --dark-bg: #0f0f23;
-            --darker-bg: #070721;
-            --card-bg: rgba(255, 255, 255, 0.05);
+            /* Colors */
+            --primary-color: #FF4D00;
+            --primary-glow: rgba(255, 77, 0, 0.4);
+            --primary-soft: rgba(255, 77, 0, 0.1);
+            --bg-color: #050505;
+            --bg-darker: #000000;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-bg-hover: rgba(255, 255, 255, 0.05);
             --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+            --text-secondary: #8a8a8a;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.06);
+            --glass-border-hover: 1px solid rgba(255, 77, 0, 0.5);
+
+            /* Typography */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Shadows */
+            --shadow-soft: 0 4px 30px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 40px var(--primary-glow);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+            /* Animations */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-smooth: all 0.5s var(--ease-out-expo);
+            --transition-fast: all 0.3s var(--ease-out-quint);
         }
 
         * {
@@ -31,89 +49,167 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--dark-bg);
-            overflow-x: hidden;
-            width: 100%;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Animated Background */
-        .animated-bg {
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Fixed Parallax Background */
+        #parallax-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: var(--dark-bg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .animated-bg::before {
+        #parallax-bg::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(120, 53, 246, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    rgba(5, 5, 5, 0.3) 0%,
+                    rgba(5, 5, 5, 0.5) 50%,
+                    rgba(5, 5, 5, 0.8) 100%);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(1deg); }
-            66% { transform: translateY(10px) rotate(-1deg); }
-        }
-
-        /* Header */
-        .header {
+        /* ========================================
+           LOADING OVERLAY
+           ======================================== */
+        .loading-overlay {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(15, 15, 35, 0.8);
+            height: 100%;
+            background: var(--bg-darker);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s var(--ease-out-expo), visibility 0.8s;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loading-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) forwards;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #ff8a50);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========================================
+           NAVBAR - GLASSMORPHISM
+           ======================================== */
+        .header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 0.9rem 2rem;
             z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: var(--transition-smooth);
+            opacity: 0;
+            animation: navSlideIn 1s var(--ease-out-expo) 0.5s forwards;
+        }
+
+        @keyframes navSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
 
         .header.scrolled {
-            background: rgba(15, 15, 35, 0.95);
-            box-shadow: var(--shadow-xl);
+            background: rgba(10, 10, 10, 0.9);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
         }
 
-    /* Mobile Menu Button - Moved to top to avoid overriding media query */
-    .mobile-menu-btn {
-        display: none;
-        font-size: 1.5rem;
-        color: var(--text-primary);
-        cursor: pointer;
-        z-index: 1001;
-    }
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-fast);
+        }
+
+        .logo a:hover {
+            color: var(--primary-color);
+        }
 
         .nav-menu {
             display: flex;
@@ -124,68 +220,89 @@
         .nav-menu a {
             text-decoration: none;
             color: var(--text-secondary);
+            font-size: 0.9rem;
             font-weight: 500;
             position: relative;
-            transition: all 0.3s ease;
+            transition: var(--transition-fast);
         }
 
-        .nav-menu a::before {
+        .nav-menu a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -6px;
             left: 0;
-            width: 0;
+            width: 0%;
             height: 2px;
-            background: var(--gradient-1);
-            transition: width 0.3s ease;
+            background: var(--primary-color);
+            border-radius: 2px;
+            transition: width 0.3s var(--ease-out-expo);
         }
 
         .nav-menu a:hover {
             color: var(--text-primary);
+            text-shadow: 0 0 20px var(--primary-glow);
         }
 
-        .nav-menu a:hover::before {
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
             width: 100%;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cv-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 0.6rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cv-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: var(--primary-soft);
         }
 
         .contact-btn {
-            background: var(--gradient-1);
-            color: white;
-            padding: 0.8rem 2rem;
+            background: var(--primary-color);
+            color: #000;
+            padding: 0.6rem 1.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .contact-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .contact-btn:hover::before {
-            left: 100%;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 15px var(--primary-glow);
         }
 
         .contact-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 60px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 8px 25px var(--primary-glow);
         }
 
-        /* Web Projects Section */
+        /* ========================================
+           WEB PROJECTS SECTION
+           ======================================== */
         .web-projects {
             padding: 10rem 2rem 8rem;
-            background: var(--dark-bg);
+            background: rgba(5, 5, 5, 0.6);
+            /* 40% transparency */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             min-height: 100vh;
+            position: relative;
         }
 
         .projects-container {
@@ -195,20 +312,17 @@
 
         .projects-title {
             text-align: center;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 1rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -2px;
             opacity: 0;
             animation: slideInUp 0.8s ease-out 0.2s forwards;
         }
 
         .projects-subtitle {
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             margin-bottom: 5rem;
             max-width: 600px;
@@ -221,73 +335,96 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            /* 2 Column Grid */
+            gap: 3rem;
             margin-bottom: 4rem;
-            padding: 0 1rem;
         }
 
         .project-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border: var(--glass-border);
+            border-radius: 24px;
             overflow: hidden;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            transition: var(--transition-smooth);
             position: relative;
             opacity: 0;
             transform: translateY(50px);
             animation: slideInUp 0.8s ease-out forwards;
         }
 
-        .project-card:nth-child(1) { animation-delay: 0.6s; }
-        .project-card:nth-child(2) { animation-delay: 0.8s; }
-        .project-card:nth-child(3) { animation-delay: 1s; }
+        .project-card:nth-child(1) {
+            animation-delay: 0.6s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        .project-card:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .project-card:nth-child(5) {
+            animation-delay: 1.0s;
+        }
+
+        .project-card:nth-child(6) {
+            animation-delay: 1.1s;
+        }
+
+        .project-card:nth-child(7) {
+            animation-delay: 1.2s;
+        }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: var(--shadow-xl);
+            background: var(--card-bg-hover);
+            border-color: rgba(255, 77, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 77, 0, 0.1);
         }
 
         .project-image {
             width: 100%;
-            height: 250px;
-            background: var(--gradient-1);
-            display: block;
+            height: 300px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .project-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center;
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-        .project-card:nth-child(2) .project-image {
-            background: var(--gradient-2);
-        }
-
-        .project-card:nth-child(3) .project-image {
-            background: var(--gradient-3);
-        }
-
-        .project-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.8s;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-out-expo);
         }
 
-        .project-card:hover .project-image::before {
-            left: 100%;
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .concept-tab {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
         }
 
         .project-content {
@@ -305,61 +442,58 @@
             color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: 2rem;
-        }
-
-        .project-link {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            padding: 0.8rem 1.5rem;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 50px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .project-link:hover {
-            transform: translateX(5px);
-            background: rgba(245, 158, 11, 0.2);
-            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+            font-size: 0.95rem;
         }
 
         .project-tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
         }
 
         .tech-tag {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-secondary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
             font-size: 0.8rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: var(--transition-fast);
         }
 
         .project-card:hover .tech-tag {
-            background: rgba(99, 102, 241, 0.1);
-            border-color: rgba(99, 102, 241, 0.3);
-            color: var(--text-primary);
+            background: rgba(255, 77, 0, 0.1);
+            border-color: rgba(255, 77, 0, 0.3);
+            color: var(--primary-color);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+            text-shadow: 0 0 20px var(--primary-glow);
         }
 
         .back-button {
             text-align: center;
             margin-top: 4rem;
             opacity: 0;
-            animation: slideInUp 0.8s ease-out 1.2s forwards;
+            animation: slideInUp 0.8s ease-out 1s forwards;
         }
 
         .btn {
-            background: var(--gradient-1);
-            color: white;
+            background: var(--primary-color);
+            color: #000;
             padding: 1rem 2.5rem;
             border: none;
             border-radius: 50px;
@@ -367,20 +501,21 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-glow);
+            gap: 0.6rem;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 20px var(--primary-glow);
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 60px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 8px 30px var(--primary-glow);
         }
 
-        /* Footer */
+        /* ========================================
+           FOOTER
+           ======================================== */
         .footer {
-            background: var(--darker-bg);
-            color: white;
+            background: var(--bg-darker);
             padding: 6rem 2rem 2rem;
             position: relative;
         }
@@ -389,10 +524,11 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
         }
 
         .footer-container {
@@ -402,17 +538,13 @@
         }
 
         .footer-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -1px;
         }
 
         .footer-subtitle {
-            font-size: 1.2rem;
             color: var(--text-secondary);
             margin-bottom: 3rem;
         }
@@ -420,63 +552,70 @@
         .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
         .contact-item {
+            background: var(--card-bg);
+            border: var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
             color: var(--text-secondary);
-            padding: 1.5rem;
-            background: var(--card-bg);
-            border-radius: 15px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
         }
 
         .contact-item:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
+            background: var(--card-bg-hover);
+            border-color: rgba(255, 77, 0, 0.3);
             color: var(--text-primary);
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             margin-bottom: 3rem;
         }
 
         .social-link {
-            width: 60px;
-            height: 60px;
-            background: var(--card-bg);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-secondary);
             text-decoration: none;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+            transition: var(--transition-fast);
+            backdrop-filter: blur(10px);
         }
 
         .social-link:hover {
-            background: var(--gradient-1);
-            color: white;
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: var(--shadow-glow);
+            background: var(--primary-color);
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px var(--primary-glow);
+            border-color: transparent;
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
             padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
@@ -487,6 +626,7 @@
                 opacity: 0;
                 transform: translateY(50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -495,285 +635,154 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
+            .header {
+                width: 100%;
+                top: 0;
+                border-radius: 0;
+                left: 0;
+                transform: none;
+                padding: 1rem 1.5rem;
+            }
+
+            @keyframes navSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .nav-menu,
+            .header-buttons {
                 display: none;
             }
 
-            .projects-title {
-                font-size: 2.5rem;
+            .mobile-menu-btn {
+                display: block;
             }
 
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
 
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-title {
-                font-size: 2rem;
-            }
-
-            .project-card {
-                margin: 0;
-            }
-
-            .project-image {
-                height: 200px;
+            .web-projects {
+                padding-top: 8rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .projects-container {
-                padding: 0 1rem;
-            }
+                /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
 
-            .project-content {
-                padding: 2rem 1.5rem;
-            }
-
-            .nav-container {
-                padding: 0 1rem;
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block !important;
             }
         }
-        
-        .concept-tab {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    z-index: 10;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: all 0.3s ease;
-}
 
-.concept-tab:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-
-.copy-feedback {
-    background-color: #333;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: bold;
-    pointer-events: none;
-    opacity: 0;
-    animation: fadeInOut 2s ease-in-out;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-}
-
-.copyable {
-    transition: opacity 0.2s ease;
-}
-
-.copyable:hover {
-    opacity: 0.8 !important;
-}
-
-/* Header Buttons Container */
-.header-buttons {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-/* CV Download Button */
-.cv-btn {
-    background: transparent;
-    color: var(--text-primary);
-    padding: 0.8rem 1.8rem;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    font-size: 0.9rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.cv-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    transition: left 0.5s;
-}
-
-.cv-btn:hover::before {
-    left: 100%;
-}
-
-.cv-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
-}
-
-.cv-btn i {
-    font-size: 0.9rem;
-}
-
-/* Mobile Responsive - Update existing mobile styles */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .header-buttons {
-        display: none;
-    }
-    
-    .cv-btn {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.8rem;
-    }
-    
-    .cv-btn span {
-        display: none; /* Hide text on very small screens */
-    }
-    
-    .contact-btn {
-        padding: 0.7rem 1.5rem;
-        font-size: 0.9rem;
-    }
-    
-    /* For very small screens, show only icons */
-    @media (max-width: 480px) {
-        .cv-btn {
-            padding: 0.7rem;
-            min-width: auto;
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: var(--transition-smooth);
         }
-        
-        .cv-btn::after {
-            content: '';
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
         }
-    }
-}
 
-
-
-
-    /* Mobile Menu */
-
-
-    .mobile-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(15, 15, 35, 0.98);
-        backdrop-filter: blur(20px);
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .mobile-menu.active {
-        transform: translateX(0);
-    }
-
-    .mobile-link {
-        font-size: 1.5rem;
-        color: var(--text-primary);
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.3s;
-    }
-
-    .mobile-link:hover {
-        color: var(--accent-color);
-    }
-
+        .mobile-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
     </style>
 </head>
-<body>
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
 
-    <!-- Header -->
-<header class="header">
-    <div class="nav-container">
-        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Faizan Alam</a></div>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-            </ul>
-        </nav>
-        <div class="header-buttons">
-            <a href="https://rxresu.me/faizanalameducation/web-developer" class="cv-btn" download>
-                <i class="fas fa-download"></i>
-                Download CV
-            </a>
-            <a href="#contact" class="contact-btn">Let's Talk</a>
+<body>
+    <!-- Fixed Parallax Background -->
+    <div id="parallax-bg"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loader">
+        <div class="loading-logo">FAIZAN ALAM</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
         </div>
     </div>
-</header>
 
-<div class="mobile-menu">
-    <a href="index.html" class="mobile-link" onclick="toggleMenu()">Home</a>
-    <a href="#services" class="mobile-link" onclick="toggleMenu()">Services</a>
-    <a href="#about" class="mobile-link" onclick="toggleMenu()">About</a>
-    <a href="#projects" class="mobile-link" onclick="toggleMenu()">Projects</a>
-    <a href="#skills" class="mobile-link" onclick="toggleMenu()">Skills</a>
-    <a href="https://rxresu.me/faizanalameducation/web-developer" class="mobile-link" download>Download CV</a>
-    <a href="#contact" class="mobile-link" onclick="toggleMenu()">Let's Talk</a>
-</div>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Faizan Alam</a></div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#skills">Skills</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="header-buttons">
+                <a href="https://rxresu.me/faizanalameducation/web-developer" class="cv-btn" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download CV
+                </a>
+                <a href="index.html#contact" class="contact-btn">Let's Talk</a>
+            </div>
+        </div>
+    </header>
 
+    <div class="mobile-menu">
+        <a href="index.html" class="mobile-link" onclick="toggleMenu()">Home</a>
+        <a href="index.html#services" class="mobile-link" onclick="toggleMenu()">Services</a>
+        <a href="index.html#skills" class="mobile-link" onclick="toggleMenu()">Skills</a>
+        <a href="index.html#projects" class="mobile-link" onclick="toggleMenu()">Projects</a>
+        <a href="index.html#contact" class="mobile-link" onclick="toggleMenu()">Contact</a>
+        <a href="https://rxresu.me/faizanalameducation/web-developer" class="cv-btn" target="_blank" style="font-size: 1.1rem; padding: 0.8rem 2rem;">`n            <i class="fas fa-download"></i> Download CV`n        </a>
+    </div>
 
     <!-- Web Projects Section -->
     <section class="web-projects">
         <div class="projects-container">
             <h2 class="projects-title">Web Development Projects</h2>
-            <p class="projects-subtitle">Explore my latest web development projects showcasing modern technologies and innovative solutions.</p>
-            
-            
-            <div class="projects-grid">
+            <p class="projects-subtitle">Explore my latest web development projects showcasing modern technologies and
+                innovative solutions.</p>
 
+            <div class="projects-grid">
+                <!-- Project 1 -->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="./assets/Seelios Shoe Ecommerce Website.png" alt="Seelios – Shoe Ecommerce Website">
@@ -781,7 +790,10 @@
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Seelios – Shoe Ecommerce Website</h3>
-                        <p class="project-desc">A modern ecommerce website concept designed to showcase premium sneakers, apparel, and accessories. This project focuses on clean UI, intuitive navigation, and a product-first layout featuring trending items, hero sections, membership CTA, and a fully structured shopping experience. Built as a portfolio piece to highlight skills in UI/UX design, responsive layouts, and ecommerce-focused user flows.</p>
+                        <p class="project-desc">A modern ecommerce website concept designed to showcase premium
+                            sneakers, apparel, and accessories. This project focuses on clean UI, intuitive navigation,
+                            and a product-first layout featuring trending items, hero sections, membership CTA, and a
+                            fully structured shopping experience.</p>
                         <div class="project-tech-stack">
                             <span class="tech-tag">Next.js 16</span>
                             <span class="tech-tag">TypeScript</span>
@@ -798,14 +810,18 @@
                     </div>
                 </div>
 
+                <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="./assets/Lupern – AI Landing Page Generator.png" alt="Lupern - AI Landing Page Generator">
+                        <img src="./assets/Lupern – AI Landing Page Generator.png"
+                            alt="Lupern - AI Landing Page Generator">
                         <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Lupern – AI Landing Page Generator</h3>
-                        <p class="project-desc">An AI-powered landing page generator that creates high-converting, SEO-optimized pages in seconds using smart copywriting, automated structure, and real-time previews—simply describe your business and launch instantly.</p>
+                        <p class="project-desc">An AI-powered landing page generator that creates high-converting,
+                            SEO-optimized pages in seconds using smart copywriting, automated structure, and real-time
+                            previews—simply describe your business and launch instantly.</p>
                         <div class="project-tech-stack">
                             <span class="tech-tag">Next.js 14</span>
                             <span class="tech-tag">TypeScript</span>
@@ -821,55 +837,67 @@
                     </div>
                 </div>
 
-                                <div class="project-card">
-    <div class="project-image">
-        <img src="./assets/screencapture-type-speed-5fho-onrender-2025-07-30-11_33_49.png" alt="StarType Pro Typing Coach">
-        <span class="concept-tab">Concept</span>
-    </div>
-    <div class="project-content">
-        <h3 class="project-name">StarType Pro Typing Coach</h3>
-        <p class="project-desc">A typing speed platform that enables users to improve keyboard proficiency through customizable tests, real-time analytics, and difficulty levels while providing performance tracking and competitive features for enhanced typing skills.</p>
-        <div class="project-tech-stack">
-            <span class="tech-tag">HTML5</span>
-            <span class="tech-tag">CSS3</span>
-            <span class="tech-tag">Vanilla JS</span>
-            <span class="tech-tag">Chart.js</span>
-            <span class="tech-tag">Node.js</span>
-            <span class="tech-tag">Express.js</span>
-        </div>
-        <a href="https://type-speed-5fho.onrender.com/" class="project-link" target="_blank">
-            View Project <i class="fas fa-external-link-alt"></i>
-        </a>
-    </div>
-</div>
-
-                <div class="project-card">
-    <div class="project-image">
-        <img src="./assets/screencapture-file-C-Users-Faizan-Desktop-Code-Web-Developer-Projects-ChatWala-index-html-2025-05-31-19_47_48.png" alt="Chat Messanging Landing Page">
-        <span class="concept-tab">Concept</span>
-    </div>
-    <div class="project-content">
-        <h3 class="project-name">Chat Messanging Landing Page</h3>
-        <p class="project-desc">An intuitive chat application that enables teams to communicate effortlessly with other teams while supporting individual calling features for enhanced professional collaboration and connectivity.</p>
-        <div class="project-tech-stack">
-            <span class="tech-tag">HTML5</span>
-            <span class="tech-tag">CSS3</span>
-            <span class="tech-tag">Vanilla JS</span>
-            <span class="tech-tag">Google Fonts</span>
-        </div>
-        <a href="https://faizanalameducation.github.io/chatwala/" class="project-link" target="_blank">
-            View Project <i class="fas fa-external-link-alt"></i>
-        </a>
-    </div>
-</div>
+                <!-- Project 3 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="./assets/screencapture-faizanalameducation-github-io-Expense-Project-2025-05-31-17_58_52.png" alt="Expense Tracker">
-                                <span class="concept-tab">Concept</span>
+                        <img src="./assets/screencapture-type-speed-5fho-onrender-2025-07-30-11_33_49.png"
+                            alt="StarType Pro Typing Coach">
+                        <span class="concept-tab">Concept</span>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">StarType Pro Typing Coach</h3>
+                        <p class="project-desc">A typing speed platform that enables users to improve keyboard
+                            proficiency through customizable tests, real-time analytics, and difficulty levels while
+                            providing performance tracking and competitive features for enhanced typing skills.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">Vanilla JS</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Express.js</span>
+                        </div>
+                        <a href="https://type-speed-5fho.onrender.com/" class="project-link" target="_blank">
+                            View Project <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="./assets/screencapture-file-C-Users-Faizan-Desktop-Code-Web-Developer-Projects-ChatWala-index-html-2025-05-31-19_47_48.png"
+                            alt="Chat Messanging Landing Page">
+                        <span class="concept-tab">Concept</span>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">Chat Messanging Landing Page</h3>
+                        <p class="project-desc">An intuitive chat application that enables teams to communicate
+                            effortlessly with other teams while supporting individual calling features for enhanced
+                            professional collaboration and connectivity.</p>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">Vanilla JS</span>
+                            <span class="tech-tag">Google Fonts</span>
+                        </div>
+                        <a href="https://faizanalameducation.github.io/chatwala/" class="project-link" target="_blank">
+                            View Project <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="./assets/screencapture-faizanalameducation-github-io-Expense-Project-2025-05-31-17_58_52.png"
+                            alt="Expense Tracker">
+                        <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Expense Tracker</h3>
-                        <p class="project-desc">A comprehensive expense tracking application built with modern JavaScript, featuring real-time data visualization and budget management capabilities.</p>
+                        <p class="project-desc">A comprehensive expense tracking application built with modern
+                            JavaScript, featuring real-time data visualization and budget management capabilities.</p>
                         <div class="project-tech-stack">
                             <span class="tech-tag">HTML5</span>
                             <span class="tech-tag">CSS3</span>
@@ -878,20 +906,23 @@
                             <span class="tech-tag">PHP</span>
                             <span class="tech-tag">MySQL</span>
                         </div>
-                        <a href="https://faizanalameducation.github.io/Expense-Project/" class="project-link" target="_blank">
+                        <a href="https://faizanalameducation.github.io/Expense-Project/" class="project-link"
+                            target="_blank">
                             View Project <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
                 </div>
-                
+
+                <!-- Project 6 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="3x"><img src="./assets/ai chat.png" alt="Al-Powered Customer Support System"></i>
-                                <span class="concept-tab">Concept</span>
+                        <img src="./assets/ai chat.png" alt="Al-Powered Customer Support System">
+                        <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">AI-Powered Customer Support System</h3>
-                        <p class="project-desc">An intelligent customer support system powered by AI, providing automated responses and seamless user interactions.</p>
+                        <p class="project-desc">An intelligent customer support system powered by AI, providing
+                            automated responses and seamless user interactions.</p>
                         <div class="project-tech-stack">
                             <span class="tech-tag">HTML5</span>
                             <span class="tech-tag">CSS3</span>
@@ -899,67 +930,72 @@
                             <span class="tech-tag">Chart.js</span>
                             <span class="tech-tag">Font Awesome</span>
                         </div>
-                        <a href="https://faizanalameducation.github.io/Customer-Support-System-AI/" class="project-link" target="_blank">
+                        <a href="https://faizanalameducation.github.io/Customer-Support-System-AI/" class="project-link"
+                            target="_blank">
                             View Project <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
                 </div>
-                
+
+                <!-- Project 7 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <i class="3x"><img src="./assets/grove street.png" alt=""></i>
-                                <span class="concept-tab">Concept</span>
+                        <img src="./assets/grove street.png" alt="Smart Inventory Management System">
+                        <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
                         <h3 class="project-name">Smart Inventory Management System</h3>
-                        <p class="project-desc">A smart inventory management system designed to streamline business operations with real-time tracking and analytics.</p>
+                        <p class="project-desc">A smart inventory management system designed to streamline business
+                            operations with real-time tracking and analytics.</p>
                         <div class="project-tech-stack">
                             <span class="tech-tag">HTML5</span>
                             <span class="tech-tag">CSS3</span>
                             <span class="tech-tag">Vanilla JS</span>
                             <span class="tech-tag">Local Storage</span>
                         </div>
-                        <a href="https://faizanalameducation.github.io/Smart-Inventory-Management-System/" class="project-link" target="_blank">
+                        <a href="https://faizanalameducation.github.io/Smart-Inventory-Management-System/"
+                            class="project-link" target="_blank">
                             View Project <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
                 </div>
 
             </div>
-            
+
             <div class="back-button">
-                <a href="index.html" class="btn">← Back to Portfolio</a>
+                <a href="index.html" class="btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="footer">
+    <footer class="footer">
         <div class="footer-container">
             <h2 class="footer-title">Let's Work Together</h2>
             <p class="footer-subtitle">If you need a person who can visualize stories, then let us chat!</p>
-            
-            <div class="contact-info">
-    <div class="contact-item copyable" data-copy="faizanalameducation@gmail.com">
-        <i class="fas fa-envelope"></i>
-        <span>faizanalameducation@gmail.com</span>
-    </div>
-    <div class="contact-item copyable" data-copy="+917061969508">
-        <i class="fas fa-phone"></i>
-        <span>Available for consultation</span>
-    </div>
-    <div class="contact-item">
-        <i class="fas fa-map-marker-alt"></i>
-        <span>Remote Work Available</span>
-    </div>
-</div>
 
+            <div class="contact-info">
+                <div class="contact-item copyable" data-copy="faizanalameducation@gmail.com">
+                    <i class="fas fa-envelope"></i>
+                    <span>faizanalameducation@gmail.com</span>
+                </div>
+                <div class="contact-item copyable" data-copy="+917061969508">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 7061969508</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Remote Work Available</span>
+                </div>
+            </div>
 
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/faizanalamfa?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/faizanalamfa" class="social-link" title="LinkedIn" target="_blank">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a href="https://github.com/faizanalameducation" class="social-link" title="GitHub">
+                <a href="https://github.com/faizanalameducation" class="social-link" title="GitHub" target="_blank">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -970,149 +1006,145 @@
         </div>
     </footer>
 
-
     <script>
-        // Header background on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
+        // ========================================
+        // PARALLAX CONFIGURATION
+        // ========================================
+        const TOTAL_FRAMES = 152;
+        const FRAME_PATH = './assets/Hero-section/frame_';
+        const FRAME_EXT = '_delay-0.04s.webp';
+
+        const parallaxBg = document.getElementById('parallax-bg');
+        const loader = document.getElementById('loader');
+        const loadingProgress = document.getElementById('loadingProgress');
+        const header = document.querySelector('.header');
+
+        let frames = [];
+        let loadedCount = 0;
+        let currentFrame = 0;
+
+        // ========================================
+        // FRAME LOADING
+        // ========================================
+        function preloadFrames() {
+            for (let i = 0; i < TOTAL_FRAMES; i++) {
+                const img = new Image();
+                const index = i.toString().padStart(3, '0');
+                img.src = `${FRAME_PATH}${index}${FRAME_EXT}`;
+
+                img.onload = () => {
+                    loadedCount++;
+                    const progress = Math.floor((loadedCount / TOTAL_FRAMES) * 100);
+                    loadingProgress.style.width = `${progress}%`;
+
+                    // Show first frame immediately when loaded
+                    if (i === 0 && parallaxBg) {
+                        updateParallaxBackground(img.src);
+                    }
+
+                    if (loadedCount === TOTAL_FRAMES) {
+                        hideLoader();
+                    }
+                };
+
+                img.onerror = () => {
+                    loadedCount++;
+                    if (loadedCount >= 10) hideLoader(); // Fallback
+                };
+
+                frames[i] = img;
+            }
+
+            // Safety timeout
+            setTimeout(() => {
+                if (!loader.classList.contains('hidden')) {
+                    hideLoader();
+                }
+            }, 5000);
+        }
+
+        function hideLoader() {
+            loader.classList.add('hidden');
+        }
+
+        function updateParallaxBackground(src) {
+            if (parallaxBg) {
+                parallaxBg.style.backgroundImage = `url('${src}')`;
+            }
+        }
+
+        // ========================================
+        // SCROLL HANDLING
+        // ========================================
+        function handleScroll() {
+            const scrollY = window.scrollY;
+
+            // Animate parallax across full page scroll
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollFraction = Math.min(scrollY / scrollHeight, 1);
+            const frameIndex = Math.min(
+                TOTAL_FRAMES - 1,
+                Math.floor(scrollFraction * TOTAL_FRAMES)
+            );
+
+            if (frameIndex !== currentFrame && frames[frameIndex] && frames[frameIndex].complete) {
+                currentFrame = frameIndex;
+                updateParallaxBackground(frames[frameIndex].src);
+            }
+
+            // Header scroll effect
+            if (scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add hover effects to project cards
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-// Copy functionality for email and phone
-
-// Fallback copy function for older browsers
-function copyTextFallback(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-        document.execCommand('copy');
-        textArea.remove();
-    } catch (err) {
-        console.error('Fallback: Oops, unable to copy', err);
-        textArea.remove();
-        throw err;
-    }
-}
-
-// Show feedback to user
-function showCopyFeedback(element, message) {
-    // Create feedback element
-    const feedback = document.createElement('div');
-    feedback.textContent = message;
-    feedback.className = 'copy-feedback';
-    
-    // Position feedback
-    const rect = element.getBoundingClientRect();
-    feedback.style.position = 'fixed';
-    feedback.style.left = rect.left + (rect.width / 2) + 'px';
-    feedback.style.top = (rect.top - 40) + 'px';
-    feedback.style.transform = 'translateX(-50%)';
-    feedback.style.zIndex = '9999';
-    
-    document.body.appendChild(feedback);
-    
-    // Remove feedback after animation
-    setTimeout(() => {
-        if (feedback.parentNode) {
-            feedback.parentNode.removeChild(feedback);
         }
-    }, 2000);
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-    const copyableElements = document.querySelectorAll('.copyable');
-    
-    copyableElements.forEach(element => {
-        // Add copy icon
-        const copyIcon = document.createElement('i');
-        copyIcon.className = 'fas fa-copy copy-icon';
-        copyIcon.style.marginLeft = '8px';
-        copyIcon.style.opacity = '0';
-        copyIcon.style.transition = 'opacity 0.2s ease';
-        element.appendChild(copyIcon);
-        
-        element.addEventListener('click', async function() {
-            const textToCopy = this.getAttribute('data-copy');
-            
-            try {
-                if (navigator.clipboard && window.isSecureContext) {
-                    await navigator.clipboard.writeText(textToCopy);
-                    showCopyFeedback(this, 'Copied!');
-                } else {
-                    copyTextFallback(textToCopy);
-                    showCopyFeedback(this, 'Copied!');
-                }
-            } catch (err) {
-                console.error('Failed to copy: ', err);
-                showCopyFeedback(this, 'Copy failed!');
-            }
-        });
-        
-        element.style.cursor = 'pointer';
-        
-        element.addEventListener('mouseenter', function() {
-            copyIcon.style.opacity = '0.7';
-        });
-        
-        element.addEventListener('mouseleave', function() {
-            copyIcon.style.opacity = '0';
-        });
-    });
-});
-
-
-
-
-    </script>
-    <script>
+        // ========================================
+        // MOBILE MENU
+        // ========================================
         function toggleMenu() {
             const menu = document.querySelector('.mobile-menu');
             const btn = document.querySelector('.mobile-menu-btn i');
             menu.classList.toggle('active');
-            
+
             if (menu.classList.contains('active')) {
                 btn.classList.remove('fa-bars');
                 btn.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
             } else {
                 btn.classList.remove('fa-times');
                 btn.classList.add('fa-bars');
+                document.body.style.overflow = '';
             }
         }
+
+        // ========================================
+        // COPY TO CLIPBOARD
+        // ========================================
+        document.querySelectorAll('.copyable').forEach(item => {
+            item.addEventListener('click', function () {
+                const textToCopy = this.dataset.copy;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const span = this.querySelector('span');
+                    const originalText = span.textContent;
+                    span.textContent = 'Copied!';
+                    setTimeout(() => {
+                        span.textContent = originalText;
+                    }, 2000);
+                });
+            });
+            item.style.cursor = 'pointer';
+        });
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        window.addEventListener('scroll', handleScroll);
+
+        // Start loading
+        preloadFrames();
     </script>
 </body>
+
 </html>
