@@ -71,7 +71,9 @@
             background-repeat: no-repeat;
         }
 
-        #parallax-bg::after { display: none; }
+        #parallax-bg::after {
+            display: none;
+        }
 
         /* ========================================
            LOADING OVERLAY
@@ -860,20 +862,13 @@
                 display: block;
             }
 
-                        .hero {
+            .hero {
                 padding-top: 80px;
             }
 
-            .hero-content {
-                background: rgba(0, 0, 0, 0.3);
-                padding: 2rem;
-                border-radius: 20px;
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                margin: 0 1rem;
-            }
+            .hero-content { background: rgba(0, 0, 0, 0.6); padding: 2rem; border-radius: 20px; margin: 0 1rem; }
 
-             
+
 
             .hero-container {
                 grid-template-columns: 1fr;
@@ -1284,7 +1279,7 @@
             // Limit parallax animation to hero section + buffer
             // But keep the background fixed and visible
             if (scrollY < heroHeight * 1.5) {
-                const scrollFraction = Math.min(scrollY / heroHeight, 1);
+                const scrollFraction = Math.min(scrollY / (heroHeight * 0.7), 1);
                 const frameIndex = Math.min(
                     TOTAL_FRAMES - 1,
                     Math.floor(scrollFraction * TOTAL_FRAMES)
