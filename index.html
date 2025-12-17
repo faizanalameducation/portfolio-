@@ -69,6 +69,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+
         }
 
         #parallax-bg::after {
@@ -862,15 +863,25 @@
                 display: block;
             }
 
+            #parallax-bg {
+                transform: scale(1.2);
+            }
+
             .hero {
                 padding-top: 80px;
             }
 
-            .hero-content { background: rgba(0, 0, 0, 0.6); padding: 2rem; border-radius: 20px; margin: 0 1rem; }
+            .hero-content {
+                background: rgba(0, 0, 0, 0.6);
+                padding: 2rem;
+                border-radius: 20px;
+                width: 100%;
+            }
 
 
 
             .hero-container {
+                padding: 0 0.5rem;
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 3rem;
