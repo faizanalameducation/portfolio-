@@ -937,14 +937,21 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Canvas Overrides */
+        #parallax-bg {
+            background-image: none !important;
+            display: block;
+        }
     </style>
 </head>
 
 <body>
     <!-- Fixed Parallax Background -->
-    <div id="parallax-bg"
+    <canvas id="parallax-bg"></canvas>
+    <!-- <div id="parallax-bg"
         style="background-image: url(&quot;file:///D:/Github/portfolio-/assets/Hero-section/frame_000_delay-0.04s.webp&quot;);">
-    </div>
+    </div> -->
 
     <!-- Loading Overlay -->
     <div class="loading-overlay hidden" id="loader">
@@ -1389,6 +1396,84 @@
         // Start loading
         preloadFrames();
         revealOnScroll();
+        // ========================================
+        // CANVAS ANIMATION OVERRIDES
+        // ========================================
+        const canvas = document.getElementById('parallax-bg');
+        const ctx = canvas.getContext('2d');
+        let targetFrame = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            if (frames[currentFrame] && frames[currentFrame].complete) {
+                drawFrame(currentFrame);
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawFrame(index) {
+            const img = frames[index];
+            if (!img || !img.complete) return;
+
+            const canvasRatio = canvas.width / canvas.height;
+            const imgRatio = img.width / img.height;
+            let drawWidth, drawHeight, offsetX, offsetY;
+
+            if (canvasRatio > imgRatio) {
+                drawWidth = canvas.width;
+                drawHeight = canvas.width / imgRatio;
+                offsetX = 0;
+                offsetY = (canvas.height - drawHeight) / 2;
+            } else {
+                drawWidth = canvas.height * imgRatio;
+                drawHeight = canvas.height;
+                offsetX = (canvas.width - drawWidth) / 2;
+                offsetY = 0;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        }
+
+        // Redefine hideLoader to start render loop
+        const originalHideLoader = hideLoader;
+        hideLoader = function () {
+            loader.classList.add('hidden');
+            requestAnimationFrame(render);
+        };
+
+        function render() {
+            if (currentFrame !== targetFrame) {
+                currentFrame = targetFrame;
+                drawFrame(currentFrame);
+            }
+            requestAnimationFrame(render);
+        }
+
+        // Redefine handleScroll
+        handleScroll = function () {
+            const scrollY = window.scrollY;
+            const heroHeight = window.innerHeight;
+
+            if (scrollY < heroHeight * 1.5) {
+                const scrollFraction = Math.min(scrollY / (heroHeight * 0.7), 1);
+                targetFrame = Math.min(
+                    TOTAL_FRAMES - 1,
+                    Math.floor(scrollFraction * TOTAL_FRAMES)
+                );
+            }
+
+            if (scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+
+        // Force a resize to init canvas
+        resizeCanvas();
     </script>
 
 
