@@ -7,6 +7,8 @@
     <meta name="keywords"
         content="website designer near me, freelance web developer, web design company, web designers near me">
     <title>Web Development Projects - Faizan Alam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -21,8 +23,8 @@
             --primary-soft: rgba(255, 77, 0, 0.1);
             --bg-color: #050505;
             --bg-darker: #000000;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --card-bg-hover: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --card-bg-hover: rgba(0, 0, 0, 0.5);
             --text-primary: #ffffff;
             --text-secondary: #8a8a8a;
             --glass-border: 1px solid rgba(255, 255, 255, 0.06);
@@ -51,6 +53,16 @@
 
         html {
             scroll-behavior: smooth;
+            /* Hide scrollbar for a premium experience */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
         }
 
         body {
@@ -59,6 +71,8 @@
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
+            cursor: none;
+            /* Hide default cursor for custom one */
         }
 
         /* Fixed Parallax Background */
@@ -297,12 +311,13 @@
            ======================================== */
         .web-projects {
             padding: 10rem 2rem 8rem;
-            background: rgba(5, 5, 5, 0.6);
-            /* 40% transparency */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             min-height: 100vh;
             position: relative;
+            margin-top: 50vh;
+            /* Gap for blur transition */
         }
 
         .projects-container {
@@ -324,7 +339,7 @@
             text-align: center;
             font-size: 1.1rem;
             color: var(--text-secondary);
-            margin-bottom: 5rem;
+            margin-bottom: 15rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -354,7 +369,7 @@
         }
 
         .project-card:nth-child(1) {
-            animation-delay: 0.6s;
+            animation-delay: 0.2s;
         }
 
         .project-card:nth-child(2) {
@@ -633,6 +648,17 @@
             }
         }
 
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .header {
@@ -674,17 +700,6 @@
             }
         }
 
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            z-index: 1001;
-        }
-
         .mobile-menu {
             display: none;
             position: fixed;
@@ -716,6 +731,16 @@
             font-size: 1.8rem;
             font-weight: 600;
             transition: var(--transition-fast);
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                cursor: auto !important;
+            }
+
+            #custom-cursor {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -764,7 +789,8 @@
         <a href="index.html#skills" class="mobile-link" onclick="toggleMenu()">Skills</a>
         <a href="index.html#projects" class="mobile-link" onclick="toggleMenu()">Projects</a>
         <a href="index.html#contact" class="mobile-link" onclick="toggleMenu()">Contact</a>
-        <a href="https://rxresu.me/faizanalameducation/web-developer" class="cv-btn" target="_blank" style="font-size: 1.1rem; padding: 0.8rem 2rem;">`n            <i class="fas fa-download"></i> Download CV`n        </a>
+        <a href="https://rxresu.me/faizanalameducation/web-developer" class="cv-btn" target="_blank"
+            style="font-size: 1.1rem; padding: 0.8rem 2rem;">`n <i class="fas fa-download"></i> Download CV`n </a>
     </div>
 
     <!-- Web Projects Section -->
@@ -778,11 +804,13 @@
                 <!-- Project 1 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="./assets/Seelios Shoe Ecommerce Website.png" alt="Seelios – Shoe Ecommerce Website">
+                        <img src="./assets/seelios-project.png" alt="Seelios - Shoe Ecommerce Website">
                         <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-name">Seelios – Shoe Ecommerce Website</h3>
+                        <h3 class="project-name">Seelios - Shoe Ecommerce Website</h3>
+
+
                         <p class="project-desc">A modern ecommerce website concept designed to showcase premium
                             sneakers, apparel, and accessories. This project focuses on clean UI, intuitive navigation,
                             and a product-first layout featuring trending items, hero sections, membership CTA, and a
@@ -806,15 +834,17 @@
                 <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="./assets/Lupern – AI Landing Page Generator.png"
-                            alt="Lupern - AI Landing Page Generator">
+                        <img src="./assets/lupern-project.png" alt="Lupern - AI Landing Page Generator">
                         <span class="concept-tab">Concept</span>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-name">Lupern – AI Landing Page Generator</h3>
+                        <h3 class="project-name">Lupern - AI Landing Page Generator</h3>
+
+
                         <p class="project-desc">An AI-powered landing page generator that creates high-converting,
                             SEO-optimized pages in seconds using smart copywriting, automated structure, and real-time
-                            previews—simply describe your business and launch instantly.</p>
+                            previews simply describe your business and launch instantly.</p>
+
                         <div class="project-tech-stack">
                             <span class="tech-tag">Next.js 14</span>
                             <span class="tech-tag">TypeScript</span>
@@ -1007,6 +1037,7 @@
         const FRAME_PATH = './assets/Hero-section/frame_';
         const FRAME_EXT = '_delay-0.04s.webp';
 
+        const hero = document.querySelector('.hero');
         const parallaxBg = document.getElementById('parallax-bg');
         const loader = document.getElementById('loader');
         const loadingProgress = document.getElementById('loadingProgress');
@@ -1058,12 +1089,12 @@
 
         function hideLoader() {
             loader.classList.add('hidden');
+            drawFrame(0);
+            requestAnimationFrame(render);
         }
 
         function updateParallaxBackground(src) {
-            if (parallaxBg) {
-                parallaxBg.style.backgroundImage = `url('${src}')`;
-            }
+            // No-op for canvas
         }
 
         // ========================================
@@ -1071,18 +1102,14 @@
         // ========================================
         function handleScroll() {
             const scrollY = window.scrollY;
+            const heroHeight = window.innerHeight;
 
-            // Animate parallax across full page scroll
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollFraction = Math.min(scrollY / scrollHeight, 1);
-            const frameIndex = Math.min(
-                TOTAL_FRAMES - 1,
-                Math.floor(scrollFraction * TOTAL_FRAMES)
-            );
-
-            if (frameIndex !== currentFrame && frames[frameIndex] && frames[frameIndex].complete) {
-                currentFrame = frameIndex;
-                updateParallaxBackground(frames[frameIndex].src);
+            if (scrollY < heroHeight * 1.5) {
+                const scrollFraction = Math.min(scrollY / (heroHeight * 0.7), 1);
+                targetFrame = Math.min(
+                    TOTAL_FRAMES - 1,
+                    Math.floor(scrollFraction * TOTAL_FRAMES)
+                );
             }
 
             // Header scroll effect
@@ -1113,30 +1140,208 @@
         }
 
         // ========================================
-        // COPY TO CLIPBOARD
-        // ========================================
-        document.querySelectorAll('.copyable').forEach(item => {
-            item.addEventListener('click', function () {
-                const textToCopy = this.dataset.copy;
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    const span = this.querySelector('span');
-                    const originalText = span.textContent;
-                    span.textContent = 'Copied!';
-                    setTimeout(() => {
-                        span.textContent = originalText;
-                    }, 2000);
-                });
-            });
-            item.style.cursor = 'pointer';
-        });
-
-        // ========================================
         // INITIALIZATION
         // ========================================
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', () => {
+            handleScroll();
+        });
 
         // Start loading
         preloadFrames();
+
+        // ========================================
+        // CANVAS ANIMATION OVERRIDES
+        // ========================================
+        const canvas = document.createElement('canvas');
+        canvas.id = 'parallax-bg';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.zIndex = '-1';
+        // Replace existing div with canvas
+        const existingBg = document.getElementById('parallax-bg');
+        if (existingBg) existingBg.replaceWith(canvas);
+
+        const ctx = canvas.getContext('2d');
+        let targetFrame = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            if (frames[currentFrame] && frames[currentFrame].complete) {
+                drawFrame(currentFrame);
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawFrame(index) {
+            const img = frames[index];
+            if (!img || !img.complete) return;
+
+            const canvasRatio = canvas.width / canvas.height;
+            const imgRatio = img.width / img.height;
+            let drawWidth, drawHeight, offsetX, offsetY;
+
+            if (canvasRatio > imgRatio) {
+                drawWidth = canvas.width;
+                drawHeight = canvas.width / imgRatio;
+                offsetX = 0;
+                offsetY = (canvas.height - drawHeight) / 2;
+            } else {
+                drawWidth = canvas.height * imgRatio;
+                drawHeight = canvas.height;
+                offsetX = (canvas.width - drawWidth) / 2;
+                offsetY = 0;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        }
+
+        function render() {
+            if (currentFrame !== targetFrame) {
+                currentFrame = targetFrame;
+            }
+            drawFrame(currentFrame);
+            requestAnimationFrame(render);
+        }
+
+        resizeCanvas();
+    </script>
+
+    <script>
+        // Premium scroll effect - glass overlay and smooth content reveal
+        (function () {
+            // Custom Cursor
+            const cursor = document.createElement('div');
+            cursor.id = 'custom-cursor';
+            cursor.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--primary-color);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s, height 0.3s, background-color 0.3s;
+                mix-blend-mode: difference;
+            `;
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.querySelectorAll('a, button, .project-card').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '50px';
+                    cursor.style.height = '50px';
+                    cursor.style.backgroundColor = 'rgba(255, 77, 0, 0.1)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.width = '20px';
+                    cursor.style.height = '20px';
+                    cursor.style.backgroundColor = 'transparent';
+                });
+            });
+
+            // Create glass overlay element
+            const glassOverlay = document.createElement('div');
+            glassOverlay.id = 'glass-overlay';
+            glassOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                pointer-events: none;
+                background: transparent;
+                backdrop-filter: blur(0px);
+                -webkit-backdrop-filter: blur(0px);
+                transition: backdrop-filter 0.5s ease-out;
+            `;
+            document.body.insertBefore(glassOverlay, document.body.firstChild);
+
+            const contentSections = document.querySelectorAll('.web-projects, .footer');
+
+            contentSections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(60px)';
+                section.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            });
+
+            function updateScrollEffects() {
+                const scrollY = window.scrollY;
+                const heroHeight = window.innerHeight;
+
+                // Start glass effect AFTER animation is mostly done (1.2x hero height)
+                const glassStart = heroHeight * 0.8;
+                const glassEnd = heroHeight * 1.3;
+
+                let blurAmount = 0;
+                let overlayOpacity = 0;
+
+                if (scrollY > glassStart) {
+                    const progress = Math.min((scrollY - glassStart) / (glassEnd - glassStart), 1);
+                    blurAmount = progress * 15; // Max 15px blur
+                    overlayOpacity = progress * 0.4; // Max 0.4 opacity
+                }
+
+                glassOverlay.style.background = `rgba(0, 0, 0, ${overlayOpacity})`;
+                glassOverlay.style.backdropFilter = `blur(${blurAmount}px)`;
+                glassOverlay.style.webkitBackdropFilter = `blur(${blurAmount}px)`;
+
+                contentSections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+
+                    if (rect.top < windowHeight * 0.75) {
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+
+            let ticking = false;
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    requestAnimationFrame(function () {
+                        updateScrollEffects();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            updateScrollEffects();
+        })();
+
+        // ========================================
+        // MOBILE MENU
+        // ========================================
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const btn = document.querySelector('.mobile-menu-btn i');
+            menu.classList.toggle('active');
+
+            if (menu.classList.contains('active')) {
+                btn.classList.remove('fa-bars');
+                btn.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
+            } else {
+                btn.classList.remove('fa-times');
+                btn.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        }
     </script>
 </body>
 
