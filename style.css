@@ -35,6 +35,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -42,6 +43,7 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  max-width: 100vw;
   line-height: 1.6;
 }
 
@@ -760,6 +762,11 @@ body::before {
   width: 80px;
   z-index: 2;
   pointer-events: none;
+}
+
+.projects-scroll-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg2), transparent);
 }
 
 .projects-scroll-wrap::after {
@@ -2112,9 +2119,10 @@ body::before {
   #navbar {
     top: 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
     left: 0;
     transform: none;
+    box-sizing: border-box;
   }
 
   .nav-inner {
@@ -2142,7 +2150,11 @@ body::before {
     display: flex;
     flex-direction: column;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    box-sizing: border-box;
     background: rgba(6, 6, 17, .98);
     backdrop-filter: blur(24px);
     align-items: center;
@@ -2152,6 +2164,17 @@ body::before {
     gap: 16px;
     z-index: 1000;
     overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  body.menu-open .nav-inner {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(6, 6, 17, 0.98);
   }
 
   .nav-links.open a {
@@ -2184,6 +2207,7 @@ body::before {
   #pricing,
   #contact {
     padding: 80px 0;
+    overflow-x: hidden;
   }
 
   .section-inner {

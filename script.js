@@ -47,6 +47,7 @@ const navLinks = document.querySelector('.nav-links');
 if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
         const open = navLinks.classList.toggle('open');
+        document.body.classList.toggle('menu-open', open);
         const s = hamburger.querySelectorAll('span');
         if (open) {
             s[0].style.transform = 'rotate(45deg) translate(5px,5px)';
@@ -55,9 +56,12 @@ if (hamburger && navLinks) {
         } else resetHamburger();
     });
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-        navLinks.classList.remove('open'); resetHamburger();
+        navLinks.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        resetHamburger();
     }));
     function resetHamburger() {
+        document.body.classList.remove('menu-open');
         const s = hamburger.querySelectorAll('span');
         s[0].style.transform = s[2].style.transform = '';
         s[1].style.opacity = '';
