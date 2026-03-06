@@ -354,3 +354,81 @@ document.querySelectorAll('.dest-card').forEach(card => {
         }
     });
 });
+
+// ════════════════════════════════════════════════
+// ── Liquid Glass Water Droplet Cursor (Desktop) ─
+// ════════════════════════════════════════════════
+(function initWaterCursor() {
+    // Only initialize on devices with fine pointers and desktop widths
+    if (!window.matchMedia('(pointer: fine)').matches || window.innerWidth < 1024) return;
+
+    // Create the cursor element
+    const cursor = document.createElement('div');
+    cursor.id = 'water-cursor';
+    document.body.appendChild(cursor);
+
+    // Show cursor and hide default cursor
+    cursor.style.display = 'block';
+    document.body.classList.add('hide-default-cursor');
+
+    // Physics variables
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let cursorX = mouseX;
+    let cursorY = mouseY;
+    let velX = 0;
+    let velY = 0;
+
+    // Listen for mouse movement
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Animation loop using spring physics
+    function render() {
+        // Calculate distance from cursor to actual mouse
+        const dx = mouseX - cursorX;
+        const dy = mouseY - cursorY;
+
+        // Apply spring/easing (lower number = more drag/inertia)
+        cursorX += dx * 0.15;
+        cursorY += dy * 0.15;
+
+        // Calculate velocity (difference per frame)
+        velX = cursorX - mouseX;
+        velY = cursorY - mouseY;
+
+        // Calculate total speed
+        const speed = Math.sqrt(velX * velX + velY * velY);
+
+        // Calculate angle of movement for directional stretching
+        const angle = Math.atan2(velY, velX) * 180 / Math.PI;
+
+        // Stretch factor: base scale is 1. When moving fast, scaleX increases and scaleY decreases
+        // We cap the stretching to prevent it from looking completely flat
+        const stretchBase = 1;
+        const stretchAmount = Math.min(speed * 0.004, 0.4);
+        const scaleX = stretchBase + stretchAmount;
+        const scaleY = stretchBase - (stretchAmount * 0.5);
+
+        // Apply transform: translate to actual position, rotate to angle of movement, and scale to stretch
+        // translate(-50%, -50%) centers it
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        cursor.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(${scaleX}, ${scaleY})`;
+
+        // Optional: Increase distortion when moving by tweaking the SVG filter dynamically
+        // const filter = document.querySelector('#water-distortion-filter feDisplacementMap');
+        // if (filter) filter.setAttribute('scale', 35 + Math.min(speed, 30));
+
+        requestAnimationFrame(render);
+    }
+
+    // Start animation loop
+    requestAnimationFrame(render);
+
+    // Hide cursor when leaving window
+    document.body.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+    document.body.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
+})();

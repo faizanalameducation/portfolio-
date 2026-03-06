@@ -2591,3 +2591,35 @@ body::before {
 .pricing-card.popular[data-glow] {
   border-color: var(--accent);
 }
+
+/* ════════════════════════════════════════
+   WATER DROPLET CURSOR (Desktop Only)
+   ════════════════════════════════════════ */
+/* Hide default cursor when custom cursor is active */
+body.hide-default-cursor,
+body.hide-default-cursor * {
+  cursor: none !important;
+}
+
+#water-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70px;
+  /* Reduced radius for better precision */
+  height: 70px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+
+  /* Clean glass circle edge lighting (S6 style) */
+  box-shadow:
+    inset 0 0 4px rgba(255, 255, 255, 0.4),
+    inset 1px 1px 8px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 8px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+
+  transform: translate(-50%, -50%) scale(1);
+  display: none;
+  will-change: transform, left, top;
+}
